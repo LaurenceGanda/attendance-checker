@@ -79,7 +79,7 @@ function renderAttendanceList(data = attendanceData) {
     if (data.length === 0) {
         attendanceEntriesTable.innerHTML = `
             <tr>
-                <td colspan="4" class="empty-state">
+                <td colspan="5" class="empty-state">
                     <i class="fas fa-user-clock"></i>
                     <p>No attendance records yet</p>
                 </td>
@@ -90,6 +90,8 @@ function renderAttendanceList(data = attendanceData) {
     
     data.forEach((entry, index) => {
         const row = document.createElement('tr');
+        // Add data-status attribute for mobile card styling
+        row.setAttribute('data-status', entry.status);
         row.innerHTML = `
             <td>${entry.name}</td>
             <td>${entry.subject || 'Not specified'}</td>

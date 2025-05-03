@@ -353,7 +353,7 @@ button:hover {
     background-color: var(--card-bg);
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    padding: 10px;
+    padding: 8px;
     margin-top: 10px;
     z-index: 100;
     width: 180px;
@@ -735,7 +735,18 @@ footer {
     }
     
     .card {
-        margin-bottom: 12px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+    }
+    
+    /* Make the table rows more compact */
+    tbody tr:not(:last-child) {
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    tbody tr td {
+        padding-top: 4px;
+        padding-bottom: 4px;
     }
     
     input, select, button {
@@ -769,11 +780,18 @@ footer {
 }
 
 @media (max-width: 480px) {
+    /* Make attendance list more compact */
+    .attendance-list {
+        padding: 0 8px 8px 8px;
+    }
+    
     /* Table layout adjustments */
     table {
         table-layout: fixed;
         border-collapse: collapse;
         width: 100%;
+        font-size: 12px;
+        margin: 0;
     }
     
     /* Hide less important columns on small screens */
@@ -786,20 +804,36 @@ footer {
     
     /* Adjust column widths for better display */
     th:nth-child(1), td:nth-child(1) { /* Name column */
-        width: 45%;
-        padding-right: 5px;
+        width: 38%;
+        padding-right: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 0.9rem;
+    }
+    
+    th:nth-child(2), td:nth-child(2) { /* Subject column */
+        font-size: 0.85rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 60px;
     }
     
     th:nth-child(3), td:nth-child(3) { /* Status column */
-        width: 30%;
-        padding-left: 2px;
-        padding-right: 2px;
+        width: 22%;
+        padding: 2px;
         text-align: center;
     }
     
+    th:nth-child(4), td:nth-child(4) { /* Time column */
+        font-size: 0.85rem;
+    }
+    
     th:nth-child(5), td:nth-child(5) { /* Actions column */
-        width: 25%;
-        padding-left: 5px;
+        width: 40%;
+        padding-left: 2px;
+        text-align: right;
     }
     
     .date-display {
@@ -837,9 +871,11 @@ footer {
     }
     
     th, td {
-        padding: 8px 5px;
-        font-size: 13px;
+        padding: 6px 4px;
+        font-size: 12px;
         word-break: break-word;
+        line-height: 1.2;
+        vertical-align: middle;
     }
     
     .actions {
@@ -855,14 +891,14 @@ footer {
     }
     
     .actions button {
-        width: 32px;
-        height: 32px;
-        min-width: 32px;
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
         padding: 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 2px;
+        margin: 0 1px;
     }
     
     .actions button i {
@@ -877,7 +913,7 @@ footer {
     }
     
     input, select, button {
-        padding: 10px;
+        padding: 8px;
         font-size: 14px;
         -webkit-appearance: none;
         appearance: none;
@@ -907,5 +943,393 @@ footer {
     /* Fix header section */
     header h1 {
         font-size: 1.5rem;
+    }
+}
+
+
+/* Specific fix for 370px width */
+@media (max-width: 370px) and (min-width: 361px) {
+    .container {
+        padding: 0 4px;
+        margin: 4px auto;
+    }
+    
+    .card {
+        padding: 8px;
+        margin-bottom: 8px;
+    }
+    
+    th:nth-child(1), td:nth-child(1) { /* Name column */
+        width: 35%;
+        font-size: 0.85rem;
+    }
+    
+    th:nth-child(2), td:nth-child(2) { /* Subject column */
+        font-size: 0.8rem;
+        max-width: 50px;
+        padding: 2px;
+    }
+    
+    th:nth-child(3), td:nth-child(3) { /* Status column */
+        width: 20%;
+        padding: 1px;
+    }
+    
+    th:nth-child(4), td:nth-child(4) { /* Time column */
+        font-size: 0.8rem;
+        padding: 1px;
+    }
+    
+    th:nth-child(5), td:nth-child(5) { /* Actions column */
+        width: 45%;
+    }
+    
+    .status {
+        padding: 2px 4px;
+        font-size: 0.75rem;
+    }
+    
+    .edit-btn, .delete-btn {
+        width: 28px;
+        height: 28px;
+        margin-left: 2px;
+    }
+    
+    .search-container input {
+        font-size: 0.85rem;
+    }
+    
+    .export-button {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Medium-small mobile devices */
+@media (max-width: 400px) and (min-width: 371px) {
+    .container {
+        padding: 0 4px;
+        margin: 4px auto;
+    }
+    
+    header h1 {
+        font-size: 1.3rem;
+    }
+    
+    .date-display {
+        font-size: 0.8rem;
+    }
+    
+    .color-scheme-toggle {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .attendance-form {
+        padding: 8px;
+    }
+    
+    .form-title {
+        font-size: 1rem;
+        margin-bottom: 12px;
+        padding-bottom: 5px;
+    }
+    
+    /* Further optimize table layout */
+    th, td {
+        padding: 6px 3px;
+        font-size: 12px;
+    }
+    
+    .status {
+        padding: 4px 6px;
+        font-size: 11px;
+    }
+    
+    /* Adjust column widths for better display */
+    th:nth-child(1), td:nth-child(1) { /* Name column */
+        width: 36%;
+    }
+    
+    th:nth-child(2), td:nth-child(2) { /* Subject column */
+        max-width: 55px;
+    }
+    
+    th:nth-child(3), td:nth-child(3) { /* Status column */
+        width: 24%;
+    }
+    
+    th:nth-child(5), td:nth-child(5) { /* Actions column */
+        width: 40%;
+    }
+    
+    /* Make actions more compact */
+    .actions {
+        gap: 2px;
+    }
+    
+    .actions button {
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+        margin: 0 1px;
+    }
+    
+    .actions button i {
+        font-size: 11px;
+    }
+    
+    /* Adjust stat cards for better fit */
+    .summary {
+        gap: 5px;
+        padding: 5px;
+    }
+    
+    .stat {
+        padding: 5px;
+        margin-bottom: 3px;
+    }
+    
+    .stat span {
+        font-size: 20px;
+    }
+    
+    .stat p {
+        font-size: 11px;
+    }
+    
+    /* Optimize form elements */
+    .input-group label {
+        font-size: 0.8rem;
+        margin-bottom: 2px;
+    }
+    
+    input, select, button {
+        padding: 8px;
+        font-size: 13px;
+        height: 40px;
+    }
+    
+    #add-entry {
+        font-size: 0.9rem;
+    }
+    
+    /* Fix search and export buttons */
+    .search-container {
+        padding: 8px;
+        gap: 8px;
+    }
+    
+    .search-icon {
+        left: 8px;
+    }
+    
+    .search-container input {
+        padding-left: 30px;
+    }
+    
+    .export-button {
+        width: 35px;
+        min-width: 35px;
+        padding: 8px;
+    }
+}
+
+/* Extra small screens optimization */
+@media (max-width: 360px) {
+    .summary {
+        padding: 5px;
+        gap: 5px;
+    }
+    
+    .stat {
+        width: calc(50% - 5px);
+        padding: 6px 3px;
+        margin-bottom: 5px;
+    }
+    
+    .stat span {
+        font-size: 18px;
+    }
+    
+    .stat p {
+        font-size: 10px;
+    }
+    
+    .attendance-form {
+        padding: 8px;
+    }
+    
+    .form-title {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+    }
+    
+    .search-container {
+        padding: 8px;
+    }
+    
+    header h1 {
+        font-size: 1.3rem;
+    }
+    
+    /* Improve table for very narrow screens */
+    th:nth-child(1), td:nth-child(1) { /* Name column */
+        width: 42%;
+        padding-right: 3px;
+        font-size: 11px;
+    }
+    
+    th:nth-child(3), td:nth-child(3) { /* Status column */
+        width: 30%;
+        padding: 2px;
+    }
+    
+    th:nth-child(5), td:nth-child(5) { /* Actions column */
+        width: 28%;
+        padding-left: 3px;
+        text-align: right;
+    }
+    
+    .actions button {
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+        margin: 0 1px;
+    }
+    
+    /* Improve touch targets */
+    #add-entry {
+        padding: 10px 5px;
+        font-size: 0.9rem;
+    }
+    
+    .status {
+        padding: 3px 6px;
+        font-size: 11px;
+    }
+    
+    .date-display {
+        font-size: 0.75rem;
+    }
+}
+
+        height: 28px;
+        min-width: 28px;
+        margin: 0 1px;
+    }
+    
+    /* Improve touch targets */
+    #add-entry {
+        padding: 10px 5px;
+        font-size: 0.9rem;
+    }
+    
+    .status {
+        padding: 2px 4px;
+        font-size: 10px;
+        border-radius: 10px;
+        display: inline-block;
+        text-align: center;
+        width: 95%;
+        box-sizing: border-box;
+    }
+    
+    .date-display {
+        font-size: 0.75rem;
+    }
+}
+
+    
+    /* Fix header section */
+    header h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Extra small screens optimization */
+@media (max-width: 360px) {
+    .summary {
+        padding: 5px;
+        gap: 5px;
+    }
+    
+    .stat {
+        width: calc(50% - 5px);
+        padding: 6px 3px;
+        margin-bottom: 5px;
+    }
+    
+    .stat span {
+        font-size: 18px;
+    }
+    
+    .stat p {
+        font-size: 10px;
+    }
+    
+    .attendance-form {
+        padding: 8px;
+    }
+    
+    .form-title {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+    }
+    
+    .search-container {
+        padding: 8px;
+    }
+    
+    header h1 {
+        font-size: 1.3rem;
+    }
+    
+    /* Improve table for very narrow screens */
+    th:nth-child(1), td:nth-child(1) { /* Name column */
+        width: 42%;
+        padding-right: 3px;
+        font-size: 11px;
+    }
+    
+    th:nth-child(3), td:nth-child(3) { /* Status column */
+        width: 30%;
+        padding: 2px;
+    }
+    
+    th:nth-child(5), td:nth-child(5) { /* Actions column */
+        width: 28%;
+        padding-left: 3px;
+        text-align: right;
+    }
+    
+    .actions button {
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+        margin: 0 1px;
+    }
+    
+    /* Improve touch targets */
+    #add-entry {
+        padding: 10px 5px;
+        font-size: 0.9rem;
+    }
+    
+    .status {
+        padding: 3px 5px;
+        font-size: 10px;
+        border-radius: 4px;
+        display: inline-block;
+        text-align: center;
+        max-width: 100%;
+        box-sizing: border-box;
+        font-weight: 500;
+    }
+    
+    .date-display {
+        font-size: 0.75rem;
     }
 }
