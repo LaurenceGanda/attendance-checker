@@ -10,6 +10,11 @@ const attendanceEntriesTable = document.getElementById('attendance-entries');
 const searchInput = document.getElementById('search');
 const exportButton = document.getElementById('export-btn');
 
+// Color Scheme Elements
+const colorSchemeToggle = document.getElementById('color-scheme-toggle');
+const colorSchemeMenu = document.getElementById('color-scheme-menu');
+const colorOptions = document.querySelectorAll('.color-option');
+
 // Counters
 const presentCount = document.getElementById('present-count');
 const lateCount = document.getElementById('late-count');
@@ -314,10 +319,73 @@ nameInput.addEventListener('keypress', (e) => {
     }
 });
 
+// Color scheme management
+function initializeColorScheme() {
+    // Check if a theme is saved in localStorage
+    const savedTheme = localStorage.getItem('themePreference');
+    if (savedTheme) {
+        applyTheme(savedTheme);
+        highlightActiveTheme(savedTheme);
+    }
+    
+    // Toggle color scheme menu
+    colorSchemeToggle.addEventListener('click', () => {
+        colorSchemeMenu.classList.toggle('active');
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!colorSchemeToggle.contains(e.target) && !colorSchemeMenu.contains(e.target)) {
+            colorSchemeMenu.classList.remove('active');
+        }
+    });
+    
+    // Theme selection
+    colorOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            const theme = option.getAttribute('data-theme');
+            applyTheme(theme);
+            highlightActiveTheme(theme);
+            localStorage.setItem('themePreference', theme);
+            colorSchemeMenu.classList.remove('active');
+            showToast(`Theme changed to ${theme}`, 'success');
+        });
+    });
+}
+
+function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    // Update meta theme-color for mobile browsers
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+        const themeColors = {
+            'default': '#4361ee',
+            'ocean': '#0077b6',
+            'sunset': '#e76f51',
+            'forest': '#588157',
+            'dark': '#1e1e1e',
+            'pink': '#ff0080'
+        };
+        metaThemeColor.setAttribute('content', themeColors[theme] || themeColors['default']);
+    }
+}
+
+function highlightActiveTheme(activeTheme) {
+    colorOptions.forEach(option => {
+        const theme = option.getAttribute('data-theme');
+        if (theme === activeTheme) {
+            option.classList.add('active');
+        } else {
+            option.classList.remove('active');
+        }
+    });
+}
+
 // Initialize
 updateDateDisplay();
 renderAttendanceList();
 updateStatistics();
+initializeColorScheme();
 
 // Update date display every minute
 setInterval(updateDateDisplay, 60000);

@@ -13,6 +13,37 @@
         <header>
             <h1>Attendance Tracker</h1>
             <p class="date-display"></p>
+            <div class="color-scheme-container">
+                <button class="color-scheme-toggle" id="color-scheme-toggle" title="Toggle color scheme menu">
+                    <i class="fas fa-palette"></i>
+                </button>
+                <div class="color-scheme-menu" id="color-scheme-menu">
+                    <div class="color-option" data-theme="default" title="Default Theme">
+                        <span class="color-dot" style="background-color: #4361ee;"></span>
+                        <span class="color-name">Default</span>
+                    </div>
+                    <div class="color-option" data-theme="ocean" title="Ocean Theme">
+                        <span class="color-dot" style="background-color: #0077b6;"></span>
+                        <span class="color-name">Ocean</span>
+                    </div>
+                    <div class="color-option" data-theme="sunset" title="Sunset Theme">
+                        <span class="color-dot" style="background-color: #e76f51;"></span>
+                        <span class="color-name">Sunset</span>
+                    </div>
+                    <div class="color-option" data-theme="forest" title="Forest Theme">
+                        <span class="color-dot" style="background-color: #588157;"></span>
+                        <span class="color-name">Forest</span>
+                    </div>
+                    <div class="color-option" data-theme="dark" title="Dark Theme">
+                        <span class="color-dot" style="background-color: #1e1e1e;"></span>
+                        <span class="color-name">Dark</span>
+                    </div>
+                    <div class="color-option" data-theme="pink" title="Pink Theme">
+                        <span class="color-dot" style="background-color: #ff0080;"></span>
+                        <span class="color-name">Pink</span>
+                    </div>
+                </div>
+            </div>
         </header>
 
         <div class="attendance-form">
@@ -81,8 +112,11 @@
 
         <div class="card">
             <div class="search-container">
-                <input type="text" id="search" placeholder="Search names...">
-                <button id="export-btn"><i class="fas fa-download"></i> Export</button>
+                <div class="search-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="search" placeholder="Search names...">
+                </div>
+                <button id="export-btn" class="export-button"><i class="fas fa-download"></i> <span class="export-text">Export</span></button>
             </div>
             <div class="attendance-list">
                 <table>
