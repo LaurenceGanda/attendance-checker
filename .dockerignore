@@ -1,0 +1,29 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# AWS deployment files
+aws-task-definition.json
+AWS_DEPLOYMENT_GUIDE.md
+cloudformation-template.yaml
+ecs-task-execution-role.json
+deploy.sh
+
+# Node.js (in case you add any Node.js components later)
+node_modules
+npm-debug.log
+
+# Editor directories and files
+.idea
+.vscode
+*.swp
+*.swo
+
+# System files
+.DS_Store
+Thumbs.db
