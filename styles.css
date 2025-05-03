@@ -237,6 +237,12 @@ input, select, button {
 input:focus, select:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+    outline: none;
+}
+
+/* Fix touch interactions */
+input, button, select, .actions button, .color-option {
+    touch-action: manipulation;
 }
 
 input {
@@ -274,7 +280,7 @@ button:hover {
     min-width: 120px;
     transition: transform 0.3s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    background-color: #fafafa;
+    background-color: var(--card-bg);
 }
 
 .stat:hover {
@@ -346,14 +352,16 @@ button:hover {
     transform: translateX(-50%);
     background-color: var(--card-bg);
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     padding: 10px;
     margin-top: 10px;
     z-index: 100;
-    width: 160px;
+    width: 180px;
     display: none;
     flex-direction: column;
     gap: 8px;
+    max-height: 250px;
+    overflow-y: auto;
 }
 
 .color-scheme-menu.active {
@@ -468,11 +476,13 @@ tbody tr:hover {
 
 .status {
     display: inline-block;
-    padding: 5px 10px;
+    padding: 5px 8px;
     border-radius: 20px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     white-space: nowrap;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .status.present {
@@ -759,6 +769,13 @@ footer {
 }
 
 @media (max-width: 480px) {
+    /* Table layout adjustments */
+    table {
+        table-layout: fixed;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
     /* Hide less important columns on small screens */
     thead th:nth-child(2), /* Subject column */
     tbody td:nth-child(2),
@@ -769,15 +786,20 @@ footer {
     
     /* Adjust column widths for better display */
     th:nth-child(1), td:nth-child(1) { /* Name column */
-        width: 40%;
+        width: 45%;
+        padding-right: 5px;
     }
     
     th:nth-child(3), td:nth-child(3) { /* Status column */
         width: 30%;
+        padding-left: 2px;
+        padding-right: 2px;
+        text-align: center;
     }
     
     th:nth-child(5), td:nth-child(5) { /* Actions column */
-        width: 30%;
+        width: 25%;
+        padding-left: 5px;
     }
     
     .date-display {
@@ -826,25 +848,64 @@ footer {
         justify-content: flex-end;
     }
     
-    .actions button {
-        width: auto;
-        padding: 6px;
+    .actions {
+        display: flex;
+        justify-content: flex-end;
+        flex-wrap: nowrap;
     }
     
+    .actions button {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 2px;
+    }
+    
+    .actions button i {
+        font-size: 12px;
+    }
+    
+    /* Improve table layout */
     table {
         min-width: 100%;
         width: 100%;
+        font-size: 13px;
     }
     
     input, select, button {
-        padding: 8px 10px;
+        padding: 10px;
         font-size: 14px;
         -webkit-appearance: none;
         appearance: none;
+        height: 44px;
     }
     
-    /* Make attendance list take full width */
+    /* Make attendance list take full width and improve scrolling */
     .attendance-list {
         padding: 0 5px 5px 5px;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Fix color scheme menu for mobile */
+    .color-scheme-menu {
+        width: 160px;
+        max-height: 200px;
+    }
+    
+    /* Add button improvements */
+    #add-entry {
+        height: auto;
+        padding: 12px 10px;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    /* Fix header section */
+    header h1 {
+        font-size: 1.5rem;
     }
 }
