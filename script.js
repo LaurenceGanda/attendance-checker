@@ -1,7 +1,8 @@
 // DOM Elements
 const dateDisplay = document.querySelector('.date-display');
 const nameInput = document.getElementById('name');
-const subjectSelect = document.getElementById('subject');
+const subjectSelect = document.getElementById('subject-select');
+const subjectCustomInput = document.getElementById('subject-custom');
 const subjectTimeInput = document.getElementById('subject-time');
 const statusSelect = document.getElementById('status');
 const addButton = document.getElementById('add-entry');
@@ -114,19 +115,31 @@ function renderAttendanceList(data = attendanceData) {
 // Add new attendance entry
 function addAttendanceEntry() {
     const name = nameInput.value.trim();
-    const subject = subjectSelect.value;
+    
+    // Get subject based on whether custom is selected or not
+    let subject;
+    if (subjectSelect.value === 'custom') {
+        subject = subjectCustomInput.value.trim();
+        if (!subject) {
+            showToast('Please enter a custom subject', 'error');
+            subjectCustomInput.focus();
+            return;
+        }
+    } else {
+        subject = subjectSelect.value;
+        if (!subject) {
+            showToast('Please select a subject', 'error');
+            subjectSelect.focus();
+            return;
+        }
+    }
+    
     const subjectTime = subjectTimeInput.value;
     const status = statusSelect.value;
     
     if (!name) {
         showToast('Please enter a name', 'error');
         nameInput.focus();
-        return;
-    }
-    
-    if (!subject) {
-        showToast('Please select a subject', 'error');
-        subjectSelect.focus();
         return;
     }
     
@@ -147,8 +160,11 @@ function addAttendanceEntry() {
     
     attendanceData.unshift(newEntry);
     
-    // Clear input field
+    // Clear input fields
     nameInput.value = '';
+    if (subjectSelect.value === 'custom') {
+        subjectCustomInput.value = '';
+    }
     nameInput.focus();
     
     // Update UI
@@ -173,7 +189,22 @@ function editAttendanceEntry(index) {
     
     // Prefill the form
     nameInput.value = entry.name;
-    if (entry.subject) subjectSelect.value = entry.subject;
+    
+    // Check if the subject is in the dropdown options
+    const subjectOptions = Array.from(subjectSelect.options)
+        .map(option => option.value)
+        .filter(value => value !== 'custom' && value !== '');
+    
+    if (entry.subject && subjectOptions.includes(entry.subject)) {
+        subjectSelect.value = entry.subject;
+        toggleCustomSubjectField();
+    } else if (entry.subject) {
+        // If not in dropdown, set as custom
+        subjectSelect.value = 'custom';
+        subjectCustomInput.value = entry.subject;
+        toggleCustomSubjectField();
+    }
+    
     if (entry.subjectTime) {
         subjectTimeInput.value = entry.subjectTime;
     } else {
@@ -244,10 +275,21 @@ function exportToCSV() {
     showToast('Attendance data exported successfully', 'success');
 }
 
+// Toggle custom subject field based on selection
+function toggleCustomSubjectField() {
+    if (subjectSelect.value === 'custom') {
+        subjectCustomInput.classList.remove('hidden');
+        subjectCustomInput.focus();
+    } else {
+        subjectCustomInput.classList.add('hidden');
+    }
+}
+
 // Event Listeners
 addButton.addEventListener('click', addAttendanceEntry);
 searchInput.addEventListener('input', filterAttendanceEntries);
 exportButton.addEventListener('click', exportToCSV);
+subjectSelect.addEventListener('change', toggleCustomSubjectField);
 
 // Event delegation for edit and delete buttons
 attendanceEntriesTable.addEventListener('click', (e) => {
